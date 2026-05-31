@@ -25,4 +25,7 @@ public class Registration {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RegistrationStatus status;
+
+    @Column
+    private Boolean attended;
 }

@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class RegistrationService {
@@ -83,5 +84,25 @@ public class RegistrationService {
         }
 
         return "Registrace zrušena. Ve frontě nezůstal žádný náhradník, místo zůstává volné";
+    }
+
+    @Transactional
+    public String markAttendence(Long eventId, Long userId, Boolean isPresent){
+        Registration registration = registrationRepository.findByEventIdAndUserId(eventId, userId)
+                .orElseThrow(() -> new RuntimeException("Registrace nenalezena."));
+
+        if (registration.getStatus() != RegistrationStatus.CONFIRMED){
+            return "Nelze  zaznamenat docházku. Student nemá potvrzenou registraci";
+        }
+
+        if (isPresent){
+            return "Docházka uložena: Uživatel byl přítomen";
+        } else {
+            return "Docházka uložena: Uživatel se nedostavil";
+        }
+    }
+
+    public List<Registration> getConfirmedRegistrations(Long eventId){
+        return registrationRepository.findByEventIdAndStatus(eventId, RegistrationStatus.CONFIRMED);
     }
 }

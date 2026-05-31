@@ -4,13 +4,16 @@ import com.example.entity.Registration;
 import com.example.entity.RegistrationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RegistrationRepository extends JpaRepository<Registration, Long> {
 
-    long countByEventIdAndStatus(long eventId, RegistrationStatus status);
+    long countByEventIdAndStatus(Long eventId, RegistrationStatus status);
 
-    boolean existsByEventIdAndUserId(long eventId, long userId);
+    boolean existsByEventIdAndUserId(Long eventId, Long userId);
 
-    Optional<Registration> findByEventIdAndUserId(long eventId, long userId);
+    List<Registration> findByEventIdAndStatus(Long eventId, RegistrationStatus status);
+
+    Optional<Registration> findByEventIdAndUserId(Long eventId, Long userId);
 }
