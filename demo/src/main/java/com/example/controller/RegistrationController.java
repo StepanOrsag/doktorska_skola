@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.service.RegistrationService;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/registrations")
 public class RegistrationController {

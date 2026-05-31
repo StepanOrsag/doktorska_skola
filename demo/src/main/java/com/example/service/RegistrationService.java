@@ -28,9 +28,14 @@ public class RegistrationService {
     public String registerStudent(Long eventId, Long userId){
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Událost nebyla nalezena."));
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Uživatel nebyl nalezen."));
+        User organiser = event.getOrganizer();
 
         if (registrationRepository.existsByEventIdAndUserId(eventId, userId)){
             return "Tento uživatel je již na událost přihlášen.";
+        }
+
+        if (organiser.getId().equals(user.getId())){
+            return "Jako organizátor se na akci přihlásit nemůžete";
         }
 
         long confirmedCount = registrationRepository.countByEventIdAndStatus(eventId, RegistrationStatus.CONFIRMED);

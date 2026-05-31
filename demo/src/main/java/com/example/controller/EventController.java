@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
@@ -24,5 +25,10 @@ public class EventController {
     @PostMapping
     public Event createEvent(@RequestBody Event newEvent) {
         return eventRepository.save(newEvent);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteEvent(@RequestParam Long eventId){
+        eventRepository.deleteById(eventId);
     }
 }
