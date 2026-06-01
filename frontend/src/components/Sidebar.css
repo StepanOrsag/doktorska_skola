@@ -1,0 +1,32 @@
+.sidebar-container {
+    width: 270px;
+    padding: 20px 0 0 20px;
+    height: calc(100vh - 50px);
+    background-color: #fafafa;
+}
+
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-link {
+    text-decoration: none;
+    padding: 12px 15px;
+    transition: background 0.2s ease;
+    color: black;
+    display: block;
+}
+
+.sidebar-link:hover {
+    background: #ebebeb;
+    text-decoration: underline;
+}
+
+.sidebar-link.active {
+    background: white;
+    display: block;
+    font-weight: bold;
+    border: 1px solid #009fdf;
+}

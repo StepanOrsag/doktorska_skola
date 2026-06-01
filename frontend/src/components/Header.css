@@ -1,0 +1,41 @@
+.header-container {
+    background: #202020;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+}
+
+.header-logo-link {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    gap: 5px;
+}
+
+.header-logo-img {
+    height: 26px;
+}
+
+#logout {
+    width: 50px;
+    height: 33.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+#logout:hover {
+    background: #3a3a3a;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: normal;
+}

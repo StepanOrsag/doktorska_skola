@@ -1,0 +1,91 @@
+.events-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+.event-card {
+    border: 1px solid #009fdf80;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.event-title {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.event-description {
+    color: #009fdf;
+}
+
+.event-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event-occupancy {
+    color: green;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.event-actions {
+    display:flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn-secondary { background-color: #6c757d; }
+.btn-primary { background-color: #009fdf; }
+.btn-danger { background-color: #dc3545; }
+
+.participants-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    border-left: 4px solid #009fdf;
+}
+
+.participants-title {
+    margin-top: 0;
+    font-size: 1.1em;
+}
+
+.participants-empty {
+    font-style: italic;
+    color: #666;
+}
+
+.participants-list {
+    margin: 0;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.participant-item {
+    margin: 5px 0;
+}
+
+.participant-attended {
+    margin-left: 10px;
+    color: green;
+    font-weight: bold;
+}
