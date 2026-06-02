@@ -1,23 +1,21 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DashboardView from "./views/DashboardView";
 import Events from "./components/Events";
+import Profile from "./components/Profile";
 
 function App() {
   const current_user_id = 2;
   return (
-  <BrowserRouter>
-    <Header currentUserId={current_user_id} />
+    <BrowserRouter>
+      <Routes>
 
-    <div id = "main">
-      <Sidebar />
-
-      <div className="content-area">
-        <Events />
-      </div>
-    </div>
-  </BrowserRouter>
+        <Route path="/" element={<DashboardView />}>
+          <Route index element={<Events />} />
+          <Route path="profil" element={<Profile />} />
+        </Route>
+        
+      </Routes>
+    </BrowserRouter>
   );
 }
 
