@@ -2,6 +2,9 @@ package com.example.controller;
 
 import com.example.entity.Event;
 import com.example.repository.EventRepository;
+import com.example.service.EventService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,24 +14,30 @@ import java.util.List;
 @RequestMapping("/api/events")
 public class EventController {
 
-    private final EventRepository eventRepository;
+    private final EventService eventService;
 
-    public EventController(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
     }
 
     @GetMapping
     public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+        return eventService.getAllEvents();
     }
 
     @PostMapping
-    public Event createEvent(@RequestBody Event newEvent) {
-        return eventRepository.save(newEvent);
+    public ResponseEntity<String> createEvent(@RequestBody Event newEvent, @RequestParam Long userId) {
+        String result = eventService.createEvent(newEvent, userId);
+
+        if(result.equals("Akce může zakládat pouze organizátor")){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(result);
+        }
+
+        return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteEvent(@RequestParam Long eventId){
-        eventRepository.deleteById(eventId);
+    @DeleteMapping("/{eventId}")
+    public void deleteEvent(@PathVariable("eventId") Long eventId){
+        eventService.deleteEvent(eventId);
     }
 }

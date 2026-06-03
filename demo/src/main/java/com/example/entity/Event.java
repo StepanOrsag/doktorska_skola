@@ -23,13 +23,12 @@ public class Event {
     @Column(nullable = false)
     private EventType eventType;
 
-    @Column(nullable = false)
     private LocalDateTime dateTime;
 
     @Column(nullable = false)
     private Integer capacity;
 
     @ManyToOne
-    @JoinColumn(name= "organizer_id", nullable = false)
+    @JoinColumn(name= "organizer_id")
     private User organizer;
 }
