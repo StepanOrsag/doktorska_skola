@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import "./Profile.css";
 
 function Profile() {
     const [user, setUser] = useState(null);
@@ -33,11 +35,23 @@ function Profile() {
 
     return (
         
-        <div>
-            <h2>Můj profil</h2>
-            <p style ={{color: "#333333"}}>{user.fullName }</p>
-            <p>{user.email}</p>
-            <p>{user.role}</p>
+        <div className="profile-wrapper">
+            <div className="navlink-container">
+                <NavLink to="/" className="nav-link">PŘEHLED AKCÍ</NavLink>
+                <h1> &gt; MŮJ PROFIL</h1>
+            </div>
+
+            <div className="profile-info-container">
+                <div className="info-card">
+                    <h3>Jméno a příjmení</h3>
+                    <p>{user.fullName }</p>
+                </div>
+                <div className="info-card">
+                    <h3>E-mail</h3>
+                    <p>{user.email}</p>
+                </div>
+            </div>
+
         </div>
     );
 }

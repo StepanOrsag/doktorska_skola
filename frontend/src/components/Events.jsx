@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import "./Events.css";
 
 function Events() {
     const [events, setEvents] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [participants, setParticipants] = useState([]);
     const [expanded, setExpanded] = useState({});
 
@@ -10,13 +13,23 @@ function Events() {
 
     useEffect(() => {
         fetch("http://localhost:8080/api/events")
-        .then(response => response.json())
-        .then(data => {
-        setEvents(data);
-        data.forEach(event => fetchParticipants(event.id));
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Chyba při komunikaci se serverem.");
+          }
+          return response.json();
         })
-        .catch(error => console.error("Chyba načítání dat:", error))
-    }, [])
+        .then(data => {
+          setEvents(data);
+          setIsLoading(false);
+          data.forEach(event => fetchParticipants(event.id));
+        })
+        .catch(error => {
+          console.error("Chyba při načítání akcí:", error);
+          setError("Akce se nepodařilo načíst, zkontroluje připojení k serveru.");
+          setIsLoading(false);
+        });
+    }, []);
 
     const handleRegister = (eventId) => {
         fetch(`http://localhost:8080/api/registrations/register?eventId=${eventId}&userId=${current_user_id}`, {
@@ -61,9 +74,21 @@ function Events() {
         setExpanded(prev => ({...prev, [eventId]: !prev[eventId]}));
     };
 
+    if (isLoading) {
+        return <div style={{ padding: "20px" }}>Načítám akce...</div>;
+    }
+
+    if (error) {
+        return <div style={{ padding: "20px", color: "red" }}>Akce se nepodařilo načíst.</div>;
+    }
+
     return (
     <div>
       <div className="events-wrapper">
+        <div className = "top-container">
+          <h1>&gt; PŘEHLED AKCÍ</h1>
+          <button className= "btn btn-primary"><NavLink to="/nova-akce" id="navlink">PŘIDAT AKCI</NavLink></button>
+        </div>
         {events.map(event => {
           
           const currentCount = participants[event.id] ? participants[event.id].length : "0";
