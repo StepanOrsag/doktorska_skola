@@ -3,7 +3,10 @@ import com.example.entity.EventType;
 import com.example.entity.User;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -23,7 +26,14 @@ public class Event {
     @Column(nullable = false)
     private EventType eventType;
 
-    private LocalDateTime dateTime;
+    @Column(nullable = false)
+    private LocalDate date;
+
+    @Column(nullable = false)
+    private LocalTime startTime;
+
+    @Column
+    private LocalTime endTime;
 
     @Column(nullable = false)
     private Integer capacity;

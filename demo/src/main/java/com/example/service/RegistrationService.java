@@ -87,6 +87,18 @@ public class RegistrationService {
     }
 
     @Transactional
+    public String cancelAllRegistrations(Long eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new RuntimeException("Událost nebyla nalezena"));
+
+        registrationRepository.deleteByEventId(eventId);
+
+        waitlistRepository.deleteByEventId(eventId);
+
+        return "Všechny registrace a čekací listina pro akci: " + event.getTitle() + " byli úspěšně zrušeny.";
+    }
+
+    @Transactional
     public String markAttendence(Long eventId, Long userId, Boolean isPresent){
         Registration registration = registrationRepository.findByEventIdAndUserId(eventId, userId)
                 .orElseThrow(() -> new RuntimeException("Registrace nenalezena."));

@@ -8,4 +8,5 @@ import java.util.OptionalInt;
 
 public interface WaitlistRepository extends JpaRepository<Waitlist, Long> {
     Optional<Waitlist> findFirstByEventIdOrderByAddedAtAsc(long id);
+    void deleteByEventId(Long id);
 }

@@ -7,17 +7,21 @@ import com.example.repository.EventRepository;
 import com.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
 public class EventService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
+    private final RegistrationService registrationService;
 
-    public EventService(EventRepository eventRepository, UserRepository userRepository) {
+    public EventService(EventRepository eventRepository, UserRepository userRepository, RegistrationService registrationService) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.registrationService = registrationService;
     }
 
     public String createEvent(Event event, Long userId) {
@@ -27,7 +31,9 @@ public class EventService {
             return "Akce může zakládat pouze organizátor";
         }
         event.setOrganizer(creator);
-        event.setDateTime(LocalDateTime.now());
+        if (event.getDate().isBefore(LocalDate.now())){
+            return "Akce se nedá naplánovat do minulosti";
+        }
 
         eventRepository.save(event);
         return "Akce úspěšně vytvořena";
@@ -38,6 +44,9 @@ public class EventService {
     }
 
     public void deleteEvent(Long eventId) {
+        if (!registrationService.getConfirmedRegistrations(eventId).isEmpty()){
+            registrationService.cancelAllRegistrations(eventId);
+        }
         eventRepository.deleteById(eventId);
     }
 }
