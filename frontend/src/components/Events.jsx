@@ -87,7 +87,7 @@ function Events() {
       <div className="events-wrapper">
         <div className = "top-container">
           <h1>&gt; PŘEHLED AKCÍ</h1>
-          <button className= "btn btn-primary"><NavLink to="/nova-akce" id="navlink">PŘIDAT AKCI</NavLink></button>
+          <NavLink to="/nova-akce" className="btn btn-primary">PŘIDAT AKCI</NavLink>
         </div>
         {events.map(event => {
           
