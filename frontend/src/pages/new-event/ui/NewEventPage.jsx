@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { useNavigate, NavLink } from "react-router-dom";
 import { eventService } from "../../../entities/event";
 import "./NewEventPage.css";
@@ -12,13 +13,19 @@ function NewEventPage() {
   const [endTime, setEndTime] = useState("");
   const [date, setDate] = useState("");
 
-  const current_user_id = 1;
+  const userJson = localStorage.getItem("user");
+  const currentUser = userJson ? JSON.parse(userJson) : null;
+
+  if (currentUser?.role !== 'ORGANIZATOR') {
+    return <Navigate to="/" replace />;
+  }
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const message = await eventService.create(current_user_id, {
+      const message = await eventService.create(currentUser.id, {
         title, description, eventType, capacity: parseInt(capacity), startTime, endTime, date
       });
       alert("Úspěch: " + message);

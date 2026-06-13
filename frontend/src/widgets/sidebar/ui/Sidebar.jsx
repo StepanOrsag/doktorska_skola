@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../../entities/user";
 import "./Sidebar.css";
 
 function Sidebar() {

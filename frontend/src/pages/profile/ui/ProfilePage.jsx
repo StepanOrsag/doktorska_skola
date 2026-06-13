@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
-import { useProfile } from "../../../entities/user";
+import { useProfile, useAuth } from "../../../entities/user";
 import "./ProfilePage.css";
 
 function ProfilePage() {
-  const current_user_id = 2;
-  const { user, isLoading, error } = useProfile(current_user_id);
+  const { user: currentUser } = useAuth();
+
+  const { user, isLoading, error } = useProfile(currentUser?.id);
 
   if (isLoading) return <div style={{ padding: "20px" }}>Načítám profil...</div>;
   if (error || !user) return <div style={{ padding: "20px", color: "red" }}>{error || "Uživatele se nepodařilo načíst."}</div>;

@@ -2,10 +2,6 @@ import { useState } from "react";
 import { formatDate, formatTime } from "../../../shared/lib/formatters";
 import "./EventCard.css";
 
-/**
- * EventCard v Entities vrstvě je zodpovědná pouze za zobrazení dat entity.
- * Akce (buttony) jsou jí předávány shora, nebo mohou být později nahrazeny sloty.
- */
 function EventCard({ event, participants = [], isRegistered, actions }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const currentCount = participants.length;

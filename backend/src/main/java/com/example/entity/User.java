@@ -1,4 +1,5 @@
 package com.example.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @JsonIgnore
+    @Column
+    private String password;
 
     private boolean gdprConsent;
 }

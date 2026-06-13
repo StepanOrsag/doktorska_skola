@@ -1,12 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { Header } from "../../widgets/header";
 import { Sidebar } from "../../widgets/sidebar";
+import { useAuth } from "../../entities/user";
 
 function DashboardView() {
-  const current_user_id = 2;
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  
   return (
     <>
-      <Header currentUserId={current_user_id} />
+      <Header/>
       <div id="main">
         <Sidebar />
         <div className="content-area">
