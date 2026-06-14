@@ -14,4 +14,7 @@ export const eventService = {
 
   unregister: (eventId, userId) => 
     apiClient(`/registrations/delete?eventId=${eventId}&userId=${userId}`, { method: "DELETE" }),
+
+  getById: (eventId) =>
+    apiClient(`/events/${eventId}`),
 };

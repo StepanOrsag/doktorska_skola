@@ -19,9 +19,11 @@ function Header() {
         <h1>DOKTORSKÁ ŠKOLA</h1>
       </a>
       <div>
-        <a href="#" id="logout" onClick={handleLogout}>
+        {user && (
+          <a href="#" id="logout" onClick={handleLogout}>
           <img src="/logout.png" alt="Odhlásit" />
         </a>
+        )}
       </div>
     </header>
   );

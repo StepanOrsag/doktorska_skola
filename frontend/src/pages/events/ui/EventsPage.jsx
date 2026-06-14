@@ -31,11 +31,14 @@ function EventsPage() {
               event={event}
               participants={eventParticipants}
               actions={
-                isRegistered ? (
-                  <button onClick={() => handleUnregister(event.id)} className="btn btn-danger">Odhlásit se</button>
-                ) : (
-                  <button onClick={() => handleRegister(event.id)} className="btn btn-primary">Přihlásit se</button>
-                )
+                <>
+                  <NavLink to={`/akce/${event.id}`} className="btn btn-secondary">Detail akce</NavLink>
+                {isRegistered ? (
+                    <button onClick={() => handleUnregister(event.id)} className="btn btn-danger">Odhlásit se</button>
+                  ) : (
+                    <button onClick={() => handleRegister(event.id)} className="btn btn-primary">Přihlásit se</button>
+                  )}
+                </>
               }
             />
           );

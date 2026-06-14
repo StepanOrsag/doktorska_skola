@@ -43,6 +43,11 @@ public class EventService {
         return eventRepository.findAll();
     }
 
+    public Event getEventById(Long eventId) {
+        return eventRepository.findById(eventId)
+                .orElseThrow(() -> new IllegalArgumentException("Akce nebyla nalezena"));
+    }
+
     public void deleteEvent(Long eventId) {
         if (!registrationService.getConfirmedRegistrations(eventId).isEmpty()){
             registrationService.cancelAllRegistrations(eventId);

@@ -33,3 +33,8 @@
 
 .btn-primary { background-color: #009fdf; display:block; text-decoration:none;}
 .btn-danger { background-color: #dc3545; }
+.btn-secondary {
+    background-color: #6c757d;
+    display:block;
+    text-decoration:none;
+}
