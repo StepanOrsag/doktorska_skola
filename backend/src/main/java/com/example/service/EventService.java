@@ -8,8 +8,6 @@ import com.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -46,6 +44,21 @@ public class EventService {
     public Event getEventById(Long eventId) {
         return eventRepository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Akce nebyla nalezena"));
+    }
+
+    public String updateEvent(Long eventId, Event eventDetails) {
+        Event event = getEventById(eventId);
+
+        event.setTitle(eventDetails.getTitle());
+        event.setDescription(eventDetails.getDescription());
+        event.setEventType(eventDetails.getEventType());
+        event.setDate(eventDetails.getDate());
+        event.setStartTime(eventDetails.getStartTime());
+        event.setEndTime(eventDetails.getEndTime());
+        event.setCapacity(eventDetails.getCapacity());
+
+        eventRepository.save(event);
+        return "Akce úspěšně upravena";
     }
 
     public void deleteEvent(Long eventId) {

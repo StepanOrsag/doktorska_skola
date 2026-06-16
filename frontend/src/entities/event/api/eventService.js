@@ -17,4 +17,10 @@ export const eventService = {
 
   getById: (eventId) =>
     apiClient(`/events/${eventId}`),
+
+  update: (eventId, eventData) =>
+    apiClient(`/events/${eventId}`, { 
+      method: "PUT", 
+      body: eventData 
+    }),
 };

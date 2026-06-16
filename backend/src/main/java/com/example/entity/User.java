@@ -23,7 +23,7 @@ public class User {
     private Role role;
 
     @JsonIgnore
-    @Column
+    @Column(nullable = false)
     private String password;
 
     private boolean gdprConsent;

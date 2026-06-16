@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.entity.Event;
-import com.example.repository.EventRepository;
 import com.example.service.EventService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +37,12 @@ public class EventController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(result);
         }
 
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/{eventId}")
+    public ResponseEntity<String> updateEvent(@PathVariable Long eventId, @RequestBody Event eventDetails) {
+        String result = eventService.updateEvent(eventId, eventDetails);
         return ResponseEntity.ok(result);
     }
 
