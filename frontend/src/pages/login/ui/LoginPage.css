@@ -36,7 +36,7 @@
     margin-bottom: 15px;
 }
 
-button {
+.login-form button {
     width: 100%;
     padding: 12px;
     background-color: var(--accent-color);

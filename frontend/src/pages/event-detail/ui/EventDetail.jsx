@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { eventService } from "../../../entities/event";
 import { formatDate, formatTime } from "../../../shared/lib/formatters";
-import { useAuth } from "../../../entities/user";
+import { useAuth } from "../../../features/auth";
+import { PageWrapper, Breadcrumb } from "../../../shared/ui";
 import "./EventDetail.css";
 
 function EventDetail() {
     const { id } = useParams();
     const { user } = useAuth();
+    const navigate = useNavigate();
     const [event, setEvent] = useState(null);
 
     useEffect(() => {
@@ -16,14 +18,22 @@ function EventDetail() {
             .catch(err => console.error("Chyba při načítání: ", err));
     }, [id]);
 
+    const handleDelete = async () => {
+        if(!window.confirm("Opravdu chcete smazat akci?")) return;
+        try {
+            await eventService.delete(id);
+            alert("Akce byla smazána.");
+            navigate("/");
+        } catch (err) {
+            alert("Chyba při mazání: " + err.message);
+        }
+    };
+
     if (!event) return <div className="loading">Načítám detaily akce...</div>;
 
     return (
-        <div className="event-detail-wrapper">
-            <div className="navlink-container">
-                <NavLink to="/" className="nav-link">PŘEHLED AKCÍ</NavLink>
-                <h1> &gt; DETAIL AKCE</h1>
-            </div>
+        <PageWrapper>
+            <Breadcrumb current="DETAIL AKCE" />
 
             <div className="event-detail-card">
                 <div className="event-detail-header">
@@ -55,11 +65,14 @@ function EventDetail() {
                 
                 <div className="event-detail-footer">
                     {user?.role === 'ORGANIZATOR' && (
-                        <NavLink to={`/akce/edit/${id}`} className="btn btn-secondary">Upravit akci</NavLink>
+                        <>
+                            <NavLink to={`/akce/edit/${id}`} className="btn btn-secondary">Upravit akci</NavLink>
+                            <button onClick={handleDelete} className="btn btn-danger">Smazat akci</button>
+                        </>
                     )}
                 </div>
             </div>
-        </div>
+        </PageWrapper>
     );
 }
 

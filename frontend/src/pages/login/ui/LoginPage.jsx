@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Header } from "../../../widgets/header";
 import { useNavigate } from "react-router-dom";
-import { userService, useAuth } from "../../../entities/user";
+import { useAuth, authService } from "../../../features/auth";
 import "./LoginPage.css";
 
 export const LoginPage = () => {
@@ -16,7 +16,7 @@ export const LoginPage = () => {
         setError("");
 
         try {
-            const userData = await userService.login({ email, password});
+            const userData = await authService.login({ email, password});
 
             login(userData);
 

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, NavLink, Navigate } from "react-router-dom";
-import { eventService, EventForm } from "../../../entities/event";
-import { useAuth } from "../../../entities/user";
-import "./EditEvent.css";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
+import { eventService } from "../../../entities/event";
+import { EventForm } from "../../../features/event-form";
+import { useAuth } from "../../../features/auth";
+import { PageWrapper, Breadcrumb } from "../../../shared/ui";
 
 function EditEvent() {
   const { id } = useParams();
@@ -10,10 +11,6 @@ function EditEvent() {
   const { user } = useAuth();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  if (user?.role !== 'ORGANIZATOR') {
-    return <Navigate to="/" replace />;
-  }
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -30,6 +27,10 @@ function EditEvent() {
     fetchEvent();
   }, [id, navigate]);
 
+  if (user?.role !== 'ORGANIZATOR') {
+    return <Navigate to="/" replace />;
+  }
+
   const handleUpdate = async (eventData) => {
     try {
       const message = await eventService.update(id, eventData);
@@ -43,11 +44,8 @@ function EditEvent() {
   if (loading) return <div className="loading">Načítám data akce...</div>;
 
   return (
-    <div className="new-event-wrapper">
-      <div className="navlink-container">
-        <NavLink to="/" className="nav-link">PŘEHLED AKCÍ</NavLink>
-        <h1> &gt; UPRAVIT AKCI</h1>
-      </div>
+    <PageWrapper>
+      <Breadcrumb current="UPRAVIT AKCI" />
       {event && (
         <EventForm 
           initialData={event} 
@@ -55,8 +53,9 @@ function EditEvent() {
           buttonLabel="ULOŽIT ZMĚNY" 
         />
       )}
-    </div>
+    </PageWrapper>
   );
 }
 
 export default EditEvent;
+

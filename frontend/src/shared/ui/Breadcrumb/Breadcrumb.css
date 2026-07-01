@@ -1,0 +1,12 @@
+.breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.breadcrumb-link {
+    text-decoration: none;
+    color: #666;
+    font-weight: bold;
+}

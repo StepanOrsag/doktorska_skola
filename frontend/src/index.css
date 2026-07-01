@@ -39,14 +39,30 @@ h3 {
     font-size: 0.8rem;
 }
 
-.nav-link {
-    color: var(--accent-color);
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
     text-decoration: none;
+    display: inline-block;
 }
 
-.navlink-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.3rem;
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn-primary { background-color: var(--accent-color); }
+.btn-danger { background-color: #dc3545; }
+.btn-secondary { background-color: #6c757d; }
+
+/* Loading */
+.loading {
+    padding: 3rem;
+    text-align: center;
+    color: var(--accent-color);
+    font-style: italic;
 }

@@ -1,8 +1,9 @@
 import { Navigate } from "react-router-dom";
-import { useNavigate, NavLink } from "react-router-dom";
-import { eventService, EventForm } from "../../../entities/event";
-import { useAuth } from "../../../entities/user";
-import "./NewEventPage.css";
+import { useNavigate } from "react-router-dom";
+import { eventService } from "../../../entities/event";
+import { EventForm } from "../../../features/event-form";
+import { useAuth } from "../../../features/auth";
+import { PageWrapper, Breadcrumb } from "../../../shared/ui";
 
 function NewEventPage() {
   const { user } = useAuth();
@@ -23,13 +24,10 @@ function NewEventPage() {
   };
 
   return (
-    <div className="new-event-wrapper">
-      <div className="navlink-container">
-        <NavLink to="/" className="nav-link">PŘEHLED AKCÍ</NavLink>
-        <h1> &gt; NOVÁ AKCE</h1>
-      </div>
+    <PageWrapper>
+      <Breadcrumb current="NOVÁ AKCE" />
       <EventForm onSubmit={handleCreate} buttonLabel="VYTVOŘIT AKCI" />
-    </div>
+    </PageWrapper>
   );
 }
 

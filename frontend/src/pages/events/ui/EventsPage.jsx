@@ -1,18 +1,23 @@
 import { NavLink } from "react-router-dom";
 import { useEvents, EventCard } from "../../../entities/event";
-import { useAuth } from "../../../entities/user";
+import { useAuth } from "../../../features/auth";
+import { useEventRegistration } from "../../../features/event-registration";
+import { PageWrapper } from "../../../shared/ui";
 import "./EventsPage.css";
 
 function EventsPage() {
   const { user } = useAuth();
 
-  const { events, participants, isLoading, error, handleRegister, handleUnregister } = useEvents(user.id);
+  const { events, participants, isLoading, error, fetchParticipants } = useEvents();
+  const { handleRegister, handleUnregister } = useEventRegistration(user.id, {
+    onParticipantsChange: fetchParticipants,
+  });
 
-  if (isLoading) return <div style={{ padding: "20px" }}>Načítám akce...</div>;
-  if (error) return <div style={{ padding: "20px", color: "red" }}>{error}</div>;
+  if (isLoading) return <div className="loading">Načítám akce...</div>;
+  if (error) return <div className="loading" style={{ color: "red" }}>{error}</div>;
 
   return (
-    <div className="events-page-wrapper">
+    <PageWrapper>
       <div className="top-container">
         <h1>&gt; PŘEHLED AKCÍ</h1>
         {user?.role === 'ORGANIZATOR' && (
@@ -44,8 +49,9 @@ function EventsPage() {
           );
         })}
       </div>
-    </div>
+    </PageWrapper>
   );
 }
 
 export default EventsPage;
+

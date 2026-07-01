@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { Header } from "../../widgets/header";
 import { Sidebar } from "../../widgets/sidebar";
-import { useAuth } from "../../entities/user";
+import { useAuth } from "../../features/auth";
 
 function DashboardView() {
   const { user } = useAuth();

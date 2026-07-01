@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { eventService } from "../api/eventService";
 
-export const useEvents = (currentUserId) => {
+export const useEvents = () => {
   const [events, setEvents] = useState([]);
   const [participants, setParticipants] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -34,33 +34,12 @@ export const useEvents = (currentUserId) => {
     loadEvents();
   }, []);
 
-  const handleRegister = async (eventId) => {
-    try {
-      const message = await eventService.register(eventId, currentUserId);
-      alert(message);
-      fetchParticipants(eventId);
-    } catch (err) {
-      alert(err.message);
-    }
-  };
-
-  const handleUnregister = async (eventId) => {
-    try {
-      const message = await eventService.unregister(eventId, currentUserId);
-      alert(message);
-      fetchParticipants(eventId);
-    } catch (err) {
-      alert(err.message);
-    }
-  };
-
   return {
     events,
     participants,
     isLoading,
     error,
-    handleRegister,
-    handleUnregister,
+    fetchParticipants,
     refreshEvents: loadEvents,
   };
 };

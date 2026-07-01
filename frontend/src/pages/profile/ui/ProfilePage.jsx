@@ -1,5 +1,6 @@
-import { NavLink } from "react-router-dom";
-import { useProfile, useAuth } from "../../../entities/user";
+import { useProfile } from "../../../entities/user";
+import { useAuth } from "../../../features/auth";
+import { PageWrapper, Breadcrumb } from "../../../shared/ui";
 import "./ProfilePage.css";
 
 function ProfilePage() {
@@ -7,15 +8,12 @@ function ProfilePage() {
 
   const { user, isLoading, error } = useProfile(currentUser?.id);
 
-  if (isLoading) return <div style={{ padding: "20px" }}>Načítám profil...</div>;
-  if (error || !user) return <div style={{ padding: "20px", color: "red" }}>{error || "Uživatele se nepodařilo načíst."}</div>;
+  if (isLoading) return <div className="loading">Načítám profil...</div>;
+  if (error || !user) return <div className="loading" style={{ color: "red" }}>{error || "Uživatele se nepodařilo načíst."}</div>;
 
   return (
-    <div className="profile-wrapper">
-      <div className="navlink-container">
-        <NavLink to="/" className="nav-link">PŘEHLED AKCÍ</NavLink>
-        <h1> &gt; MŮJ PROFIL</h1>
-      </div>
+    <PageWrapper>
+      <Breadcrumb current="MŮJ PROFIL" />
 
       <div className="profile-info-container">
         <div className="info-card">
@@ -27,7 +25,7 @@ function ProfilePage() {
           <p>{user.email}</p>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 }
 

@@ -23,4 +23,9 @@ export const eventService = {
       method: "PUT", 
       body: eventData 
     }),
+
+    delete: (eventId) =>
+    apiClient(`/events/${eventId}`, { 
+      method: "DELETE" 
+    }),
 };
